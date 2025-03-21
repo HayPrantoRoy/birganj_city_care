@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <title>Pharmacy Cards</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #334155;
+      font-weight: 700;
+      font-size: 2.5rem;
+    }
+
+    .pharmacy-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .pharmacy-card {
+      background-color: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .pharmacy-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+    }
+
+    .card-image {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-image img {
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .pharmacy-card:hover .card-image img {
+      transform: scale(1.1);
+    }
+    
+
+    .card-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background-color: rgba(37, 99, 235, 0.9);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .shop-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 10px;
+      transition: color 0.3s ease;
+    }
+
+    .pharmacy-card:hover .shop-name {
+      color: #2563eb;
+    }
+
+    .shop-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    .info-item i {
+      color: #2563eb;
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 16px;
+    }
+
+    .action-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f1f5f9;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .action-icon img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+    }
+
+    .action-icon:hover {
+      background-color: #d4ebff;
+    }
+
+
+    .card-wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      background: linear-gradient(90deg, #2563eb, #3b82f6, #2563eb);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .pharmacy-card:hover .card-wave {
+      opacity: 1;
+    }
+
+    @media (max-width: 1024px) {
+      .pharmacy-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .pharmacy-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .pharmacy-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .pharmacy-card {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    }
+    /* Like button styles */
+/* Like button styles */
+.like-button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.like-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  transition: color 0.3s ease;
+  margin-bottom: 5px;
+}
+
+.like-button.active {
+  background-color: rgba(37, 99, 235, 0.1);
+}
+
+.like-button.active img {
+  filter: brightness(0) saturate(100%) invert(32%) sepia(98%) saturate(1222%) hue-rotate(208deg) brightness(95%) contrast(96%);
+}
+
+.like-button.active .like-count {
+  color: #2563eb;
+}
+.pharmacy-card .views-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin: 5px 0;
+}
+
+.pharmacy-card .views-container img {
+  width: 20px;
+  height: auto;
+  margin-right: 5px;
+}
+.bottom-nav {
+  background-color: white;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.fixed-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+.bottom-nav .row {
+  display: flex;
+  justify-content: space-around; /* Ensures equal spacing */
+  align-items: center;
+  text-align: center;
+}
+
+.bottom-nav .col {
+  flex: 1;
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  color: #4a4a4a;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column; /* Keep text below icon */
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.bottom-nav .icon img {
+  width: 30px;
+  display: block;
+}
+
+.bottom-nav a.active,
+.bottom-nav a:hover {
+  color: #764ba2;
+}
+
+.complain-btn {
+  cursor: pointer; 
+}
+
+
+
+
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+
+    
+  <div class="bottom-nav fixed-bottom">
+    <div class="row text-center">
+        <div class="col">
+            <a href="index.html">
+                <span class="icon">
+                    <img src="img/house.png" alt="Complain Icon" style="width: 30px;">
+                </span>
+                <span>Home</span>
+            </a>
+        </div>
+        <div class="col">
+            <a onclick="complain()" class="complain-btn">
+                <span class="icon">
+                    <img src="img/shoppingicon.png" alt="Complain Icon" style="width: 32px;">
+                </span>
+                <span>Shopping</span>
+            </a>
+        </div>
+        <div class="col">
+            <a onclick="aboutinfo()" class="complain-btn">
+                <span class="icon">
+                    <img src="img/person.png" alt="Admin Support Icon" style="width: 27px; ">
+                </span>
+                <span>About & Contact</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+  <div class="container">
+    <div class="pharmacy-grid">
+      <!-- Pharmacy Card 1 -->
+      <div class="pharmacy-card">
+        <div class="card-image">
+            <img src="img/hotel_boisakhi.jpg" alt="Hotel Boishakhi">
+          <div class="card-badge">Open 24/7</div>
+        </div>                
+        <div class="card-content">
+          <h3 class="shop-name">Hotel Boishakhi</h3>
+          <div class="shop-info">
+            <div class="info-item">
+              <img src="img/broker.png" width="20px">
+              <span>John Doe</span>
+            </div>
+            <div class="info-item">
+              <img src="img/phone-call.png" width="20px">
+              <span>(555) 123-4567</span>
+            </div>
+            <div class="info-item">
+              <img src="img/map.png" width="20px">
+              <span>Upojela Road, Birganj, Dinajpur</span>
+            </div>
+          </div>
+          <div class="views-container">
+            <img src="img/viewers.png" width="25px"> 159 Views
+          </div>
+          <div class="card-actions">
+            <div class="action-icon like-button">
+              <img src="img/like.png" alt="Prescriptions" style="width: 20px !important">
+              <span class="like-count">99</span>
+            </div>
+            <div class="action-icon">
+              <img src="img/search.png" alt="Directions">
+            </div>
+            <div class="action-icon">
+              <img src="img/google-maps.png" alt="Call">
+            </div>
+            <div class="action-icon">
+              <img src="img/add_cart.png" alt="Favorite">
+            </div>
+          </div>
+        </div>
+        <div class="card-wave"></div>
+      </div>
+
+      <div class="pharmacy-card">
+        <div class="card-image">
+          <img src="img/jinius_computer.jpg" alt="MediCare Pharmacy">
+          <div class="card-badge">Open 24/7</div>
+        </div>
+        <div class="card-content">
+          <h3 class="shop-name">Jinius Computer</h3>
+          <div class="shop-info">
+            <div class="info-item">
+              <img src="img/broker.png" width="20px">
+              <span>Mijanur Rahman</span>
+            </div>
+            <div class="info-item">
+              <img src="img/phone-call.png" width="20px">
+              <span>(555) 123-4567</span>
+            </div>
+            <div class="info-item">
+              <img src="img/map.png" width="20px">
+              <span>Upojela Road, Birganj, Dinajpur</span>
+            </div>
+          </div>
+          <div class="views-container">
+            <img src="img/viewers.png" width="25px"> 1.2k Views
+          </div>
+          <div class="card-actions">
+            <div class="action-icon like-button">
+              <img src="img/like.png" alt="Prescriptions" style="width: 20px !important">
+              <span class="like-count">999</span>
+            </div>
+            <div class="action-icon">
+              <img src="img/search.png" alt="Directions">
+            </div>
+            <div class="action-icon">
+              <img src="img/google-maps.png" alt="Call">
+            </div>
+            <div class="action-icon">
+              <img src="img/add_cart.png" alt="Favorite">
+            </div>
+          </div>
+        </div>
+        <div class="card-wave"></div>
+      </div>
+
+      <div class="pharmacy-card">
+        <div class="card-image">
+          <img src="img/orcid.jpg" alt="MediCare Pharmacy">
+          <div class="card-badge">Open 24/7</div>
+        </div>
+        <div class="card-content">
+          <h3 class="shop-name">Orcid Super Shop</h3>
+          <div class="shop-info">
+            <div class="info-item">
+              <img src="img/broker.png" width="20px">
+              <span>John Doe</span>
+            </div>
+            <div class="info-item">
+              <img src="img/phone-call.png" width="20px">
+              <span>(555) 123-4567</span>
+            </div>
+            <div class="info-item">
+              <img src="img/map.png" width="20px">
+              <span>Upojela Road, Birganj, Dinajpur</span>
+            </div>
+          </div>
+          <div class="views-container">
+            <img src="img/viewers.png" width="25px"> 879 Views
+          </div>
+          <div class="card-actions">
+            <div class="action-icon like-button">
+              <img src="img/like.png" alt="Prescriptions" style="width: 20px !important">
+              <span class="like-count">657</span>
+            </div>
+            <div class="action-icon">
+              <img src="img/search.png" alt="Directions">
+            </div>
+            <div class="action-icon">
+              <img src="img/google-maps.png" alt="Call">
+            </div>
+            <div class="action-icon">
+              <img src="img/add_cart.png" alt="Favorite">
+            </div>
+          </div>
+        </div>
+        <div class="card-wave"></div>
+      </div>
+
+      <div class="pharmacy-card">
+        <div class="card-image">
+          <img src="img/mamuni_hotel.jpg" alt="MediCare Pharmacy">
+          <div class="card-badge">Open 24/7</div>
+        </div>
+        <div class="card-content">
+          <h3 class="shop-name">Mamuni Hotel</h3>
+          <div class="shop-info">
+            <div class="info-item">
+              <img src="img/broker.png" width="20px">
+              <span>John Doe</span>
+            </div>
+            <div class="info-item">
+              <img src="img/phone-call.png" width="20px">
+              <span>(555) 123-4567</span>
+            </div>
+            <div class="info-item">
+              <img src="img/map.png" width="20px">
+              <span>Upojela Road, Birganj, Dinajpur</span>
+            </div>
+          </div>
+          <div class="views-container">
+            <img src="img/viewers.png" width="25px"> 1.9k Views
+          </div>
+          <div class="card-actions">
+            <div class="action-icon like-button">
+              <img src="img/like.png" alt="Prescriptions" style="width: 20px !important">
+              <span class="like-count">1677</span>
+            </div>
+            <div class="action-icon">
+              <img src="img/search.png" alt="Directions">
+            </div>
+            <div class="action-icon">
+              <img src="img/google-maps.png" alt="Call">
+            </div>
+            <div class="action-icon">
+              <img src="img/add_cart.png" alt="Favorite">
+            </div>
+          </div>
+        </div>
+        <div class="card-wave"></div>
+      </div>
+
+      <div class="pharmacy-card">
+        <div class="card-image">
+          <img src="img/hotel_boisakhi.jpg" alt="MediCare Pharmacy">
+          <div class="card-badge">Open 24/7</div>
+        </div>
+        <div class="card-content">
+          <h3 class="shop-name">Hotel Boishakhi</h3>
+          <div class="shop-info">
+            <div class="info-item">
+              <img src="img/broker.png" width="20px">
+              <span>John Doe</span>
+            </div>
+            <div class="info-item">
+              <img src="img/phone-call.png" width="20px">
+              <span>(555) 123-4567</span>
+            </div>
+            <div class="info-item">
+              <img src="img/map.png" width="20px">
+              <span>123 Medical Blvd, Healthville</span>
+            </div>
+          </div>
+          <div class="views-container">
+            <img src="img/viewers.png" width="25px"> 159 Views
+          </div>
+          <div class="card-actions">
+            <div class="action-icon like-button">
+              <img src="img/like.png" alt="Prescriptions" style="width: 20px !important">
+              <span class="like-count">99</span>
+            </div>
+            <div class="action-icon">
+              <img src="img/search.png" alt="Directions">
+            </div>
+            <div class="action-icon">
+              <img src="img/google-maps.png" alt="Call">
+            </div>
+            <div class="action-icon">
+              <img src="img/add_cart.png" alt="Favorite">
+            </div>
+          </div>
+        </div>
+        <div class="card-wave"></div>
+      </div>
+
+      <div class="pharmacy-card">
+        <div class="card-image">
+          <img src="img/hotel_boisakhi.jpg" alt="MediCare Pharmacy">
+          <div class="card-badge">Open 24/7</div>
+        </div>
+        <div class="card-content">
+          <h3 class="shop-name">Hotel Boishakhi</h3>
+          <div class="shop-info">
+            <div class="info-item">
+              <img src="img/broker.png" width="20px">
+              <span>John Doe</span>
+            </div>
+            <div class="info-item">
+              <img src="img/phone-call.png" width="20px">
+              <span>(555) 123-4567</span>
+            </div>
+            <div class="info-item">
+              <img src="img/map.png" width="20px">
+              <span>123 Medical Blvd, Healthville</span>
+            </div>
+          </div>
+          <div class="views-container">
+            <img src="img/viewers.png" width="25px"> 159 Views
+          </div>
+          <div class="card-actions">
+            <div class="action-icon like-button">
+              <img src="img/like.png" alt="Prescriptions" style="width: 20px !important">
+              <span class="like-count">99</span>
+            </div>
+            <div class="action-icon">
+              <img src="img/search.png" alt="Directions">
+            </div>
+            <div class="action-icon">
+              <img src="img/google-maps.png" alt="Call">
+            </div>
+            <div class="action-icon">
+              <img src="img/add_cart.png" alt="Favorite">
+            </div>
+          </div>
+        </div>
+        <div class="card-wave"></div>
+      </div>
+
+     
+    </div>
+  </div>
+<br><br><br><br>
+  <script>
+    // Animate cards on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.pharmacy-card');
+      
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 100 * index);
+      });
+    });
+
+    // Add hover effects for mobile
+    const cards = document.querySelectorAll('.pharmacy-card');
+    
+    cards.forEach(card => {
+      card.addEventListener('touchstart', function() {
+        this.classList.add('hover-active');
+      });
+      
+      card.addEventListener('touchend', function() {
+        setTimeout(() => {
+          this.classList.remove('hover-active');
+        }, 500);
+      });
+    });
+
+    // Add functionality to action icons
+    const actionIcons = document.querySelectorAll('.action-icon');
+    
+    actionIcons.forEach(icon => {
+      icon.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const action = this.querySelector('img').alt;
+        
+        // Simple animation for click feedback
+        this.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1)';
+        }, 150);
+        
+        // Here you would add real functionality based on which icon was clicked
+        console.log(`${action} clicked`);
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const likeButtons = document.querySelectorAll('.like-button');
+      
+      likeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Toggle active class
+          this.classList.toggle('active');
+          
+          // Get the count element
+          const countElement = this.querySelector('.like-count');
+          let count = parseInt(countElement.textContent);
+          
+          if (this.classList.contains('active')) {
+            // Increase count when activated
+            count++;
+          } else {
+            // Decrease count when deactivated
+            if (count > 0) {
+              count--;
+            }
+          }
+          
+          // Update the count display
+          countElement.textContent = count;
+          
+          // Add small animation feedback
+          this.style.transform = 'scale(0.9)';
+          setTimeout(() => {
+            this.style.transform = 'scale(1)';
+          }, 150);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

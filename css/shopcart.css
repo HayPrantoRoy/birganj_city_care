@@ -1,0 +1,215 @@
+
+
+  .container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+  }
+
+  h1 {
+    text-align: center !important;
+    margin-bottom: 40px !important;
+    color: #334155 !important;
+    font-weight: 700 !important;
+    font-size: 2.5rem !important;
+  }
+
+  .pharmacy-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .pharmacy-card {
+    background-color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .pharmacy-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+  }
+
+  .card-image {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card-image img {
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .pharmacy-card:hover .card-image img {
+    transform: scale(1.1);
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background-color: rgba(37, 99, 235, 0.9);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  }
+
+  .card-content {
+    padding: 20px;
+  }
+
+  .shop-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+  }
+
+  .pharmacy-card:hover .shop-name {
+    color: #2563eb;
+  }
+
+  .shop-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #64748b;
+  }
+
+  .info-item i {
+    color: #2563eb;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+  }
+
+  .card-actions {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 16px;
+  }
+
+  .action-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f5f9;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .action-icon img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+
+  .action-icon:hover {
+    background-color: #d4ebff;
+  }
+
+
+  .card-wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background: linear-gradient(90deg, #2563eb, #3b82f6, #2563eb);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .pharmacy-card:hover .card-wave {
+    opacity: 1;
+  }
+
+  @media (max-width: 1024px) {
+    .pharmacy-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pharmacy-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .pharmacy-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .pharmacy-card {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+  /* Like button styles */
+/* Like button styles */
+.like-button {
+position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+cursor: pointer;
+}
+
+.like-count {
+font-size: 12px;
+font-weight: 600;
+color: #64748b;
+transition: color 0.3s ease;
+margin-bottom: 5px;
+}
+
+.like-button.active {
+background-color: rgba(37, 99, 235, 0.1);
+}
+
+.like-button.active img {
+filter: brightness(0) saturate(100%) invert(32%) sepia(98%) saturate(1222%) hue-rotate(208deg) brightness(95%) contrast(96%);
+}
+
+.like-button.active .like-count {
+color: #2563eb;
+}
+.pharmacy-card .views-container {
+display: flex;
+align-items: center;
+justify-content: flex-end;
+font-size: 14px;
+font-weight: bold;
+color: #333;
+margin: 5px 0;
+}
+
+.pharmacy-card .views-container img {
+width: 20px;
+height: auto;
+margin-right: 5px;
+}
