@@ -3,63 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive ID Cards</title>
+  <title>Modern ID Cards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
   <style>
-    body{
-        font-family: 'Poppins', sans-serif;
-        font-weight: 400;
-        font-size:14px;
-        color:#888;
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: #444;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0 0 100px 0;
     }
-          .custom-navbar {
-            background-color: white;
-            border-radius: 5px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .custom-navbar ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: space-around;
-        }
-        .custom-navbar li a {
-            text-decoration: none;
-            cursor: pointer;
-            color: #4a4a4a;
-            font-size: 20px;
-            padding: 10px 15px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        .custom-navbar li a:hover,
-        .custom-navbar li a.active {
-            background-color: #F4FA58;
-            color: black;
-        }
-
+    
+    .custom-navbar {
+      background-color: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      margin: 20px auto;
+      max-width: 1200px;
+    }
+    
+    .custom-navbar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: space-around;
+    }
+    
+    .custom-navbar li a {
+      text-decoration: none;
+      cursor: pointer;
+      color: #4a4a4a;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 10px 24px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    
+    .custom-navbar li a:hover,
+    .custom-navbar li a.active {
+      background-color: #F4FA58;
+      color: black;
+    }
     
     .container {
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
+      padding: 0 20px;
+      box-sizing: border-box;
     }
     
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
       gap: 30px;
       width: 100%;
       justify-content: center;
+      margin-top: 40px;
     }
     
     .id-card {
-      width: 105%;
-      height: 230px;
+      width: 100%;
+      height: 240px;
       background-color: white;
       border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
       position: relative;
       overflow: hidden;
       display: flex;
@@ -68,36 +82,81 @@
     
     .id-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
     }
     
-    .accent-top {
+    /* Card color styles */
+    .card-blue {
+      border-left: 5px solid #0061ff;
+    }
+    
+    .card-green {
+      border-left: 5px solid #11998e;
+    }
+    
+    .card-purple {
+      border-left: 5px solid #8e2de2;
+    }
+    
+    .card-orange {
+      border-left: 5px solid #f5af19;
+    }
+    
+    .card-red {
+      border-left: 5px solid #eb3349;
+    }
+    
+    .card-pattern {
       position: absolute;
       top: 0;
-      left: 0;
-      width: 100%;
-      height: 8px;
+      right: 0;
+      width: 150px;
+      height: 150px;
+      background-size: cover;
+      opacity: 0.04;
+      z-index: 0;
+    }
+    
+    .card-blue .card-pattern {
+      background: radial-gradient(circle, #0061ff 0%, transparent 70%);
+    }
+    
+    .card-green .card-pattern {
+      background: radial-gradient(circle, #11998e 0%, transparent 70%);
+    }
+    
+    .card-purple .card-pattern {
+      background: radial-gradient(circle, #8e2de2 0%, transparent 70%);
+    }
+    
+    .card-orange .card-pattern {
+      background: radial-gradient(circle, #f5af19 0%, transparent 70%);
+    }
+    
+    .card-red .card-pattern {
+      background: radial-gradient(circle, #eb3349 0%, transparent 70%);
     }
     
     .profile-section {
-      flex: 1;
-      padding: 30px 20px 20px;
+      width: 30%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      border-right: 1px solid #f0f0f0;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
     }
     
     .profile-image {
-      width: 90px;
-      height: 90px;
-      border-radius: 20%;
+      width: 100px;
+      height: 100px;
+      border-radius: 12px;
       background-color: #f2f2f2;
-      margin-bottom: 15px;
-      position: relative;
       overflow: hidden;
-      border: 3px solid #f8f8f8;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      border: 2px solid #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
     }
     
     .profile-image img {
@@ -107,363 +166,626 @@
     }
     
     .qr-code {
-      width: 60px;
-      height: 60px;
-      margin-top: 5px;
-      background-color: #f8f8f8;
-      border: 1px solid #eee;
+      width: 75px;
+      height: 75px;
+      margin-top: 10px;
+      background-color: white;
+      padding: 2px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      border-radius: 6px;
+    }
+    
+    .qr-code img {
+      width: 100%;
+      height: 100%;
     }
     
     .info-section {
-      flex: 1.5;
-      padding: 10px 20px 20px;
+      width: 70%;
+      padding: 20px;
       display: flex;
       flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .card-header {
+      display: flex;
       justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 15px;
     }
     
     .logo {
       display: flex;
       align-items: center;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       color: #333;
     }
     
     .logo img {
+      width: 30px;
+      height: 30px;
       margin-right: 8px;
+      border-radius: 6px;
+    }
+    
+    .card-id {
+      font-size: 12px;
+      font-weight: 600;
+      background-color: #f8f9fa;
+      padding: 4px 10px;
+      border-radius: 20px;
+      color: #666;
+    }
+    
+    .card-blue .card-id {
+      background-color: rgba(0, 97, 255, 0.08);
+      color: #0061ff;
+    }
+    
+    .card-green .card-id {
+      background-color: rgba(17, 153, 142, 0.08);
+      color: #11998e;
+    }
+    
+    .card-purple .card-id {
+      background-color: rgba(142, 45, 226, 0.08);
+      color: #8e2de2;
+    }
+    
+    .card-orange .card-id {
+      background-color: rgba(245, 175, 25, 0.08);
+      color: #f5af19;
+    }
+    
+    .card-red .card-id {
+      background-color: rgba(235, 51, 73, 0.08);
+      color: #eb3349;
+    }
+    
+    .card-body {
+      flex: 1;
     }
     
     .nameof {
       font-size: 18px;
       font-weight: 600;
       color: #333;
-      margin: 0;
+      margin: 0 0 5px 0;
     }
     
     .title {
-      font-size: 14px;
+      font-size: 13px;
       color: #666;
-      margin: 5px 0 12px;
+      margin: 0 0 15px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.07);
+    }
+    
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
     
     .details {
       font-size: 12px;
       color: #555;
-      margin: 4px 0;
       display: flex;
+      align-items: center;
     }
     
     .details .label {
-      width: 80px;
+      color: #888;
+      margin-right: 5px;
+      font-weight: 500;
+      min-width: 60px;
+      display: inline-block;
+    }
+    
+    .employee-joined-dept {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 12px;
+      color: #555;
+    }
+    
+    .joined-info, .department-info, .validity-info {
+      display: flex;
+      align-items: center;
+    }
+    
+    .joined-info .label, .department-info .label, .validity-info .label {
+      color: #888;
+      margin-right: 5px;
+      font-weight: 500;
+    }
+    
+    .card-footer {
+      margin-top: 15px;
+      font-size: 11px;
       color: #888;
     }
     
+    .bottom-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .card-blue .validity-info {
+      color: #0061ff;
+      font-weight: 500;
+    }
+    
+    .card-green .validity-info {
+      color: #11998e;
+      font-weight: 500;
+    }
+    
+    .card-purple .validity-info {
+      color: #8e2de2;
+      font-weight: 500;
+    }
+    
+    .card-orange .validity-info {
+      color: #f5af19;
+      font-weight: 500;
+    }
+    
+    .card-red .validity-info {
+      color: #eb3349;
+      font-weight: 500;
+    }
     
     /* Responsive adjustments */
-    @media (max-width: 480px) {
-      .info-section {
-        padding: 20px 10px 10px;
-      }
-      
-      .logo {
-        font-size: 12px;
-      }
-      
-      .logo img {
-        width: 40px;
-      }
-      
-      .nameof {
-        font-size: 14px;
-      }
-      
-      .title {
-        font-size: 12px;
-        margin: 2px 0 8px;
-      }
-      
-      .details {
-        font-size: 10px;
-      }
-      
-      .details .label {
-        width: 60px;
-      }
-      
-      .footer {
-        font-size: 9px;
-        margin-top: 10px;
+    @media (max-width: 1200px) {
+      .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
       }
     }
+    
+    @media (max-width: 992px) {
+      .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 20px;
+      }
+      
+      .profile-section {
+        width: 30%;
+      }
+      
+      .info-section {
+        width: 70%;
+      }
+      
+      .profile-image {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .qr-code {
+        width: 65px;
+        height: 65px;
+      }
+      
+      .employee-joined-dept {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .joined-info, .department-info, .validity-info {
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .id-card {
+        height: auto;
+        flex-direction: column;
+      }
+      
+      .profile-section {
+        width: 100%;
+        padding: 20px 20px 10px;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+      
+      .profile-image {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .qr-code {
+        width: 100px;
+        height: 100px;
+        margin-top: 0;
+      }
+      
+      .info-section {
+        width: 100%;
+        padding: 0 20px 20px;
+      }
+      
+      .employee-joined-dept {
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .custom-navbar li a {
+        padding: 8px 12px;
+        font-size: 16px;
+      }
+    }
+    
+    /* Bottom navigation */
     .bottom-nav {
-        background-color: white;
-        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-        padding: 10px 0;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-      }
-      
-      .fixed-bottom {
-        position: fixed;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 1030;
-      }
-      
-      *, ::after, ::before {
-        box-sizing: border-box;
-      }
-      
-      .bottom-nav .row {
-        display: flex;
-        justify-content: space-around; /* Ensures equal spacing */
-        align-items: center;
-        text-align: center;
-      }
-      
-      .bottom-nav .col {
-        flex: 1;
-      }
-      
-      .bottom-nav a {
-        text-decoration: none;
-        color: #4a4a4a;
-        font-size: 0.8rem;
-        display: flex;
-        flex-direction: column; /* Keep text below icon */
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-      }
-      
-      .bottom-nav .icon img {
-        width: 30px;
-        display: block;
-      }
-      
-      .bottom-nav a.active,
-      .bottom-nav a:hover {
-        color: #764ba2;
-      }
-      
-      .complain-btn {
-        cursor: pointer; 
-      }
+      background-color: white;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      padding: 10px 0;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+    
+    .fixed-bottom {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1030;
+    }
+    
+    *, ::after, ::before {
+      box-sizing: border-box;
+    }
+    
+    .bottom-nav .row {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .bottom-nav .col {
+      flex: 1;
+    }
+    
+    .bottom-nav a {
+      text-decoration: none;
+      color: #4a4a4a;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .bottom-nav .icon img {
+      width: 30px;
+      display: block;
+    }
+    
+    .bottom-nav a.active,
+    .bottom-nav a:hover {
+      color: #764ba2;
+    }
+    
+    .complain-btn {
+      cursor: pointer;
+    }
+    
+    /* Helper class */
+    .mb-4 {
+      margin-bottom: 1.5rem;
+    }
   </style>
 </head>
 <body>
-    <div class="bottom-nav fixed-bottom">
-        <div class="row text-center">
-            <div class="col">
-                <a href="index.html">
-                    <span class="icon">
-                        <img src="img/house.png" alt="Complain Icon" style="width: 30px;">
-                    </span>
-                    <span>Home</span>
-                </a>
-            </div>
-            <div class="col">
-                <a onclick="complain()" class="complain-btn">
-                    <span class="icon">
-                        <img src="img/shoppingicon.png" alt="Complain Icon" style="width: 32px;">
-                    </span>
-                    <span>Shopping</span>
-                </a>
-            </div>
-            <div class="col">
-                <a onclick="aboutinfo()" class="complain-btn">
-                    <span class="icon">
-                        <img src="img/person.png" alt="Admin Support Icon" style="width: 27px; ">
-                    </span>
-                    <span>About & Contact</span>
-                </a>
-            </div>
-        </div>
-    </div>
-<nav class="custom-navbar mb-4">
-        <ul>
-            <li><a class="active" href="#">Informations</a></li>
-            <li><a >Contact</a></li>
-        </ul>
-    </nav>
   <div class="container">
+    <nav class="custom-navbar mb-4">
+      <ul>
+        <li><a class="active" href="#">Informations</a></li>
+        <li><a>Contact</a></li>
+      </ul>
+    </nav>
+    
     <div class="card-grid">
       <!-- Card 1 -->
       <div class="id-card card-blue">
-        <div class="accent-top"></div>
-        
+        <div class="card-pattern"></div>
         <div class="profile-section">
           <div class="profile-image">
             <img src="img/pranto.jpg" alt="Employee photo">
           </div>
-          <div class="qr-code" id="qrCode5"><img src="img/qr.png" alt=""></div>
+          <div class="qr-code" id="qrCode1"></div>
         </div>
         
         <div class="info-section">
-          <div>
-            <div class="logo"><img src="img/logo.png" width="50px" > City Care Birganj</div>
-            <h class="nameof">Jane Doe</h>
-            <p class="title">Senior Developer</p>
-            
-            <div class="details">
-              <span class="label">ID:</span>
-              <span>EMP-10042</span>
-            </div>
-            <div class="details">
-              <span class="label">Number:</span>
-              <span>+88 018-424-94422</span>
-            </div>
-            <div class="details">
-              <span class="label">Email:</span>
-              <span>jane.doe@company.com</span>
-            </div>
+          <div class="card-header">
+            <div class="logo"><img src="img/logo.png"> City Care Birganj</div>
+            <div class="card-id">EMP-10042</div>
           </div>
           
+          <div class="card-body">
+            <h2 class="nameof">Jane Doe</h2>
+            <p class="title">Senior Developer</p>
+            
+            <div class="details-grid">
+              <div class="details">
+                <span class="label">Phone:</span>
+                <span>+88 018-424-94422</span>
+              </div>
+              <div class="details">
+                <span class="label">Email:</span>
+                <span>jane.doe@company.com</span>
+              </div>
+            </div>
+            
+            
+          </div>
+          
+          <div class="card-footer">
+            <div class="bottom-row">
+              <span>Issued: 22-Mar-2025</span>
+            </div>
+          </div>
         </div>
       </div>
       
       <!-- Card 2 -->
       <div class="id-card card-green">
-        <div class="accent-top"></div>
-        
+        <div class="card-pattern"></div>
         <div class="profile-section">
           <div class="profile-image">
             <img src="img/pranto.jpg" alt="Employee photo">
           </div>
-          <div class="qr-code" id="qrCode5"><img src="img/qr.png" alt=""></div>
+          <div class="qr-code" id="qrCode2"></div>
         </div>
         
         <div class="info-section">
-          <div>
-            <div class="logo"><img src="img/logo.png" width="50px" > City Care Birganj</div>
-            <h class="nameof">John Smith</h>
+          <div class="card-header">
+            <div class="logo"><img src="img/logo.png"> City Care Birganj</div>
+            <div class="card-id">EMP-10043</div>
+          </div>
+          
+          <div class="card-body">
+            <h2 class="nameof">John Smith</h2>
             <p class="title">UX Designer</p>
             
-            <div class="details">
-              <span class="label">ID:</span>
-              <span>EMP-10043</span>
+            <div class="details-grid">
+              <div class="details">
+                <span class="label">Phone:</span>
+                <span>+88 018-424-94422</span>
+              </div>
+              <div class="details">
+                <span class="label">Email:</span>
+                <span>john@company.com</span>
+              </div>
             </div>
-            <div class="details">
-              <span class="label">Number:</span>
-              <span>+88 018-424-94422</span>
-            </div>
-            <div class="details">
-              <span class="label">Email:</span>
-              <span>john@company.com</span>
+            
+            <div class="employee-joined-dept">
+              
             </div>
           </div>
           
+          <div class="card-footer">
+            <div class="bottom-row">
+              <span>Issued: 22-Mar-2025</span>
+            </div>
+          </div>
         </div>
       </div>
       
       <!-- Card 3 -->
       <div class="id-card card-purple">
-        <div class="accent-top"></div>
-        
+        <div class="card-pattern"></div>
         <div class="profile-section">
           <div class="profile-image">
             <img src="img/pranto.jpg" alt="Employee photo">
           </div>
-          <div class="qr-code" id="qrCode5"><img src="img/qr.png" alt=""></div>
+          <div class="qr-code" id="qrCode3"></div>
         </div>
         
         <div class="info-section">
-          <div>
-            <div class="logo"><img src="img/logo.png" width="50px" > City Care Birganj</div>
-            <h class="nameof">Sarah Johnson</h>
+          <div class="card-header">
+            <div class="logo"><img src="img/logo.png"> City Care Birganj</div>
+            <div class="card-id">EMP-10044</div>
+          </div>
+          
+          <div class="card-body">
+            <h2 class="nameof">Sarah Johnson</h2>
             <p class="title">Marketing Manager</p>
             
-            <div class="details">
-              <span class="label">ID:</span>
-              <span>EMP-10044</span>
+            <div class="details-grid">
+              <div class="details">
+                <span class="label">Phone:</span>
+                <span>+88 018-424-94422</span>
+              </div>
+              <div class="details">
+                <span class="label">Email:</span>
+                <span>sarah.j@company.com</span>
+              </div>
             </div>
-            <div class="details">
-              <span class="label">Number:</span>
-              <span>+88 018-424-94422</span>
-            </div>
-            <div class="details">
-              <span class="label">Email:</span>
-              <span>sarah.j@company.com</span>
+            
+            <div class="employee-joined-dept">
+             
             </div>
           </div>
           
+          <div class="card-footer">
+            <div class="bottom-row">
+              <span>Issued: 22-Mar-2025</span>
+            </div>
+          </div>
         </div>
       </div>
       
       <!-- Card 4 -->
       <div class="id-card card-orange">
-        <div class="accent-top"></div>
-        
+        <div class="card-pattern"></div>
         <div class="profile-section">
           <div class="profile-image">
             <img src="img/pranto.jpg" alt="Employee photo">
           </div>
-          <div class="qr-code" id="qrCode5"><img src="img/qr.png" alt=""></div>
+          <div class="qr-code" id="qrCode4"></div>
         </div>
         
         <div class="info-section">
-          <div>
-            <div class="logo"><img src="img/logo.png" width="50px" > City Care Birganj</div>
-            <h class="nameof">Michael Chen</h>
+          <div class="card-header">
+            <div class="logo"><img src="img/logo.png"> City Care Birganj</div>
+            <div class="card-id">EMP-10045</div>
+          </div>
+          
+          <div class="card-body">
+            <h2 class="nameof">Michael Chen</h2>
             <p class="title">Product Manager</p>
             
-            <div class="details">
-              <span class="label">ID:</span>
-              <span>EMP-10045</span>
+            <div class="details-grid">
+              <div class="details">
+                <span class="label">Phone:</span>
+                <span>+88 018-424-94422</span>
+              </div>
+              <div class="details">
+                <span class="label">Email:</span>
+                <span>michael.c@company.com</span>
+              </div>
             </div>
-            <div class="details">
-              <span class="label">Number:</span>
-              <span>+88 018-424-94422</span>
-            </div>
-            <div class="details">
-              <span class="label">Email:</span>
-              <span>michael.c@company.com</span>
+            
+            <div class="employee-joined-dept">
+              
             </div>
           </div>
           
-
+          <div class="card-footer">
+            <div class="bottom-row">
+              <span>Issued: 22-Mar-2025</span>
+            </div>
+          </div>
         </div>
       </div>
       
       <!-- Card 5 -->
       <div class="id-card card-red">
-        <div class="accent-top"></div>
-        
+        <div class="card-pattern"></div>
         <div class="profile-section">
           <div class="profile-image">
             <img src="img/pranto.jpg" alt="Employee photo">
           </div>
-          <div class="qr-code" id="qrCode5"><img src="img/qr.png" alt=""></div>
+          <div class="qr-code" id="qrCode5"></div>
         </div>
         
         <div class="info-section">
-          <div>
-            <div class="logo"><img src="img/logo.png" width="50px" > City Care Birganj</div>
-            <h class="nameof">Emma Wilson</h>
+          <div class="card-header">
+            <div class="logo"><img src="img/logo.png"> City Care Birganj</div>
+            <div class="card-id">EMP-10046</div>
+          </div>
+          
+          <div class="card-body">
+            <h2 class="nameof">Emma Wilson</h2>
             <p class="title">HR Director</p>
             
-            <div class="details">
-              <span class="label">ID:</span>
-              <span>EMP-10046</span>
+            <div class="details-grid">
+              <div class="details">
+                <span class="label">Phone:</span>
+                <span>+88 018-424-94422</span>
+              </div>
+              <div class="details">
+                <span class="label">Email:</span>
+                <span>emma.w@company.com</span>
+              </div>
             </div>
-            <div class="details">
-              <span class="label">Number:</span>
-              <span>+88 018-424-94422</span>
-            </div>
-            <div class="details">
-              <span class="label">Email:</span>
-              <span>emma.w@company.com</span>
+            
+            <div class="employee-joined-dept">
+              
             </div>
           </div>
           
-
+          <div class="card-footer">
+            <div class="bottom-row">
+              <span>Issued: 22-Mar-2025</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
+  
+  <div class="bottom-nav fixed-bottom">
+    <div class="row text-center">
+      <div class="col">
+        <a href="index.html">
+          <span class="icon">
+            <img src="img/house.png" alt="Complain Icon" style="width: 30px;">
+          </span>
+          <span>Home</span>
+        </a>
+      </div>
+      <div class="col">
+        <a href="shopping.html" class="complain-btn">
+          <span class="icon">
+            <img src="img/shoppingicon.png" alt="Complain Icon" style="width: 32px;">
+          </span>
+          <span>Shopping</span>
+        </a>
+      </div>
+      <div class="col">
+        <a href="idcard.html" class="complain-btn">
+          <span class="icon">
+            <img src="img/person.png" alt="Admin Support Icon" style="width: 27px; ">
+          </span>
+          <span>About</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Function to generate QR code
+    function generateQrCode(elementId, data) {
+      var typeNumber = 4;
+      var errorCorrectionLevel = 'L';
+      var qr = qrcode(typeNumber, errorCorrectionLevel);
+      qr.addData(data);
+      qr.make();
+      document.getElementById(elementId).innerHTML = qr.createImgTag(4);
+    }
+    
+    // Generate QR codes for each employee
+    document.addEventListener('DOMContentLoaded', function() {
+      // Format: Name, ID, Phone, Email
+      generateQrCode('qrCode1', 'Jane Doe, EMP-10042, +88 018-424-94422, jane.doe@company.com');
+      generateQrCode('qrCode2', 'John Smith, EMP-10043, +88 018-424-94422, john@company.com');
+      generateQrCode('qrCode3', 'Sarah Johnson, EMP-10044, +88 018-424-94422, sarah.j@company.com');
+      generateQrCode('qrCode4', 'Michael Chen, EMP-10045, +88 018-424-94422, michael.c@company.com');
+      generateQrCode('qrCode5', 'Emma Wilson, EMP-10046, +88 018-424-94422, emma.w@company.com');
+    });
+    
+    // Placeholder for required functions
+    function complain() {
+      alert('Shopping section clicked');
+    }
+    
+    function aboutinfo() {
+      alert('About & Contact section clicked');
+    }
+  </script>
 </body>
 </html>
-<br><br><br><br><br>
