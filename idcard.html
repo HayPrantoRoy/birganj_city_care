@@ -6,6 +6,8 @@
   <title>About</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="img/logo.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
   <style>
     body {
@@ -752,36 +754,34 @@
       </div>
     </div>
   </div>
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
   <script>
     // Function to generate QR code
     function generateQrCode(elementId, data) {
-      var typeNumber = 4;
-      var errorCorrectionLevel = 'L';
-      var qr = qrcode(typeNumber, errorCorrectionLevel);
-      qr.addData(data);
-      qr.make();
-      document.getElementById(elementId).innerHTML = qr.createImgTag(4);
+      const container = document.getElementById(elementId);
+      if (container) {
+        container.innerHTML = ""; // Clear previous content (if reloading)
+        new QRCode(container, {
+          text: data,
+          width: 100,
+          height: 100,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.L
+        });
+      }
     }
-    
-    // Generate QR codes for each employee
-    document.addEventListener('DOMContentLoaded', function() {
-      // Format: Name, ID, Phone, Email
+  
+    // Generate QR codes after page loads
+    document.addEventListener('DOMContentLoaded', function () {
       generateQrCode('qrCode1', 'Sohag Ali, Company - Techsilpo, +88 017-458-30123, Sohagali.aiu@gmail.com');
       generateQrCode('qrCode2', 'Mijanur Rahman, Company - Techsilpo, +88 017-402-46091');
       generateQrCode('qrCode3', 'Pranto Roy, Company - Techsilpo, +88 018-424-94422, prantoroy23006@gmail.com');
       generateQrCode('qrCode4', 'Abdur Hakim, Company - Techsilpo, +88 017-183-02070, ah2322160@gmail.com');
       generateQrCode('qrCode5', 'Yeasin Arafat, Company - Techsilpo, +88 017-850-34969, yeasinarafat0408@gmail.com');
     });
-    
-    // Placeholder for required functions
-    function complain() {
-      alert('Shopping section clicked');
-    }
-    
-    function aboutinfo() {
-      alert('About & Contact section clicked');
-    }
   </script>
+  
 </body>
 </html>
