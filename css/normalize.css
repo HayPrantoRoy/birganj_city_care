@@ -469,28 +469,8 @@ Preloader Area CSS
 	-webkit-transform: scaleX(1);
 	transform: scaleX(1);
 }
-.section{
-	padding:100px 0;
-}
-.section-title{
-	text-align: center;
-    margin-bottom: 60px;
-    padding: 0 250px;
-}
-.section-title h2 {
-	font-size: 32px;
-	font-weight: 600;
-	text-transform: capitalize;
-	margin-bottom: 24px;
-	position: relative;
-	color: #2C2D3F;
-}
-.section-title p{
-	font-size:15px;
-	color:#888;
-	margin-top:15px;
-}
-/* Overlay */
+
+/* Overlay 
 .overlay{
 	position:relative;
 }
@@ -503,7 +483,7 @@ Preloader Area CSS
 	width:100%;
 	background:#e0f2fe;
 	opacity:0.8;
-}
+}*/
 /* Bread Crumbs */
 .breadcrumbs {
 	background-image: url('../img/birganj.jpeg');

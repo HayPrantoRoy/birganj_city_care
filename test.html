@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Cards with Eye Views</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+        }
+        
+        .category-card {
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 300px;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-views {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #555;
+            z-index: 10;
+        }
+        
+        .category-views-icon {
+            width: 18px;
+            height: 18px;
+            margin-right: 3px;
+        }
+        
+        .category-image-container {
+            position: relative;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            min-height: 180px;
+            max-height: 200px;
+        }
+        
+        .category-image {
+            max-width: 70%;
+            max-height: 70%;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+        
+        .category-card:hover .category-image {
+            transform: scale(1.1);
+        }
+        
+        .category-text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .category-name-english {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+        }
+        
+        .category-name-bengali {
+            font-size: 14px;
+            color: #666;
+            font-weight: 400;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .category-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+        
+            .category-card {
+                height: 260px;
+            }
+        
+            .category-image-container {
+                min-height: 160px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .category-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+        
+            .category-card {
+                height: 240px;
+            }
+        
+            .category-image-container {
+                min-height: 140px;
+            }
+        
+            .category-name-english {
+                font-size: 14px;
+            }
+        
+            .category-name-bengali {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="category-grid">
+            <!-- Example Card with Eye Icon and Views -->
+            <div class="category-card">
+                <div class="category-views">
+                    <img src="img/viewers.png" alt="Views" class="category-views-icon">
+                    <span>1,234 Views</span>
+                </div>
+                <div class="category-image-container">
+                    <img src="https://techshilpo.com/Admin/imageUpload/uploads/1742643569_hotel.png" alt="Hotels" class="category-image">
+                </div>
+                <div class="category-text-container">
+                    <div class="category-name-english">Hotels</div>
+                    <div class="category-name-bengali">হোটেল</div>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-views">
+                    <img src="img/viewers.png" alt="Views" class="category-views-icon">
+                    <span>1,234 Views</span>
+                </div>
+                <div class="category-image-container">
+                    <img src="https://techshilpo.com/Admin/imageUpload/uploads/1742643612_restaurant.png" alt="Hotels" class="category-image">
+                </div>
+                <div class="category-text-container">
+                    <div class="category-name-english">Restaurants</div>
+                    <div class="category-name-bengali">রেস্টুরেন্ট</div>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-views">
+                    <img src="img/viewers.png" alt="Views" class="category-views-icon">
+                    <span>1,234 Views</span>
+                </div>
+                <div class="category-image-container">
+                    <img src="img/hotel.png" alt="Hotels" class="category-image">
+                </div>
+                <div class="category-text-container">
+                    <div class="category-name-english">Hotels with Long Name That Might Wrap</div>
+                    <div class="category-name-bengali">হোটেল সেবা</div>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-views">
+                    <img src="img/viewers.png" alt="Views" class="category-views-icon">
+                    <span>1,234 Views</span>
+                </div>
+                <div class="category-image-container">
+                    <img src="img/hotel.png" alt="Hotels" class="category-image">
+                </div>
+                <div class="category-text-container">
+                    <div class="category-name-english">Hotels with Long Name That Might Wrap</div>
+                    <div class="category-name-bengali">হোটেল সেবা</div>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-views">
+                    <img src="img/viewers.png" alt="Views" class="category-views-icon">
+                    <span>1,234 Views</span>
+                </div>
+                <div class="category-image-container">
+                    <img src="img/hotel.png" alt="Hotels" class="category-image">
+                </div>
+                <div class="category-text-container">
+                    <div class="category-name-english">Hotels with Long Name That Might Wrap</div>
+                    <div class="category-name-bengali">হোটেল সেবা</div>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-views">
+                    <img src="img/viewers.png" alt="Views" class="category-views-icon">
+                    <span>1,234 Views</span>
+                </div>
+                <div class="category-image-container">
+                    <img src="img/hotel.png" alt="Hotels" class="category-image">
+                </div>
+                <div class="category-text-container">
+                    <div class="category-name-english">Hotels with Long Name That Might Wrap</div>
+                    <div class="category-name-bengali">হোটেল সেবা</div>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-views">
+                    <img src="img/viewers.png" alt="Views" class="category-views-icon">
+                    <span>1,234 Views</span>
+                </div>
+                <div class="category-image-container">
+                    <img src="img/hotel.png" alt="Hotels" class="category-image">
+                </div>
+                <div class="category-text-container">
+                    <div class="category-name-english">Hotels with Long Name That Might Wrap</div>
+                    <div class="category-name-bengali">হোটেল সেবা</div>
+                </div>
+            </div>
+            
+            <!-- More cards following the same structure -->
+        </div>
+    </div>
+</body>
+</html>

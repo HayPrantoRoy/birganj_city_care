@@ -388,7 +388,64 @@ h1 {
 .social-icon img:hover {
   transform: scale(1.1); /* Slightly enlarge icon on hover */
 }
+.ad-slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
 
+.ad-slider {
+  position: relative;
+  width: 100%;
+}
+
+.ad-slide {
+  display: none;
+  width: 100%;
+}
+
+.ad-slide.active {
+  display: block;
+}
+
+.ad-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ad-navigation {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+}
+
+.ad-dot {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255,255,255,0.4);
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ad-dot.active {
+  background-color: white;
+  width: 16px;
+  height: 16px;
+  border-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .ad-navigation {
+    bottom: 10px;
+  }
+}
 
 </style>
     </head>
@@ -455,26 +512,38 @@ h1 {
   </div>
 </nav> 
 
-    <!-- Get Pro Button -->
+    <!-- Get Pro Button 
     <ul class="pro-features">
         <a class="get-pro" href="#">Details</a>
         <li class="big-title">Smart City Birganj – Advancing Towards a Futuristic, Sustainable, and Digital City!</li>
         <li class="title">Welcome to Smart City Birganj – Transforming Urban Living with Innovation, Smart Infrastructure, and a Sustainable Future! Join Us in Building a Greener, Smarter, and More Connected City for Everyone.</li>
      
 
-    </ul>
+    </ul>-->
 
     
     <marquee style="margin-top:8px;">Welcome to Smart City Birganj – A Hub of Innovation, Sustainability, and Smart Living! Experience Modern Infrastructure, Digital Services, and a Greener Future with Us.</marquee>
 
+    <div class="ad-slider-container" id="sliderContainer">
+      <div class="ad-slider">
+        <div class="ad-slide active">
+          <img src="img/swichget.jpg" alt="Slide 1">
+        </div>
+        <div class="ad-slide">
+          <img src="img/bpghs.jpg" alt="Slide 2">
+        </div>
+
+      </div>
+      <div class="ad-navigation"></div>
+    </div>
 
 
-    <!-- Start Fun-facts -->
+
+    <!-- Start Fun-facts
     <div id="fun-facts" class="fun-facts section overlay">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Fun -->
                     <div class="single-fun">
                         <i><img src="img/service.png" width="40px"></i>
                         <div class="content">
@@ -482,10 +551,8 @@ h1 {
                             <p style="font-size: 17px;">Daily Services</p>
                         </div>
                     </div>
-                    <!-- End Single Fun -->
                 </div>
                 <div class="col-lg-3 col-md-6 col-12">
-                    <!-- Start Single Fun -->
                     <div class="single-fun">
                       <i><img src="img/analysis.png" width="40px"></i>
                         <div class="content">
@@ -493,23 +560,22 @@ h1 {
                             <p style="font-size: 17px;">Daily Views</p>
                         </div>
                     </div>
-                    <!-- End Single Fun -->
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Fun-facts --> <hr>
     
 
 
 
-    <p style="font-size: 20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location : Birganj, Dinajpur, Rangpur
-    </p>
+
     <div class="main-container">
     <div class="category-grid">
         <!-- Category 1 -->
         <a href="shopinfo.html"><div class="category-card">
           <div class="category-image-container">
+            <h1>views</h1>
             <img src="img/hotel.png" alt="Electronics" class="category-image">
           </div>
           <div class="category-indicator"></div>
@@ -781,6 +847,67 @@ h1 {
 <br><br><br>
 <!-- End Footer -->
 </div>
+<script>
+  class AdSlider {
+    constructor(container) {
+      this.container = container;
+      this.slides = Array.from(container.querySelectorAll('.ad-slide'));
+      this.navigation = container.querySelector('.ad-navigation');
+      this.currentIndex = 0;
+      this.autoPlayInterval = null;
+      this.init();
+    }
+
+    init() {
+      this.slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('ad-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => this.goToSlide(index));
+        this.navigation.appendChild(dot);
+      });
+
+      window.addEventListener('load', () => this.updateHeight());
+      window.addEventListener('resize', () => this.updateHeight());
+
+      this.startAutoPlay();
+    }
+
+    updateHeight() {
+      const img = this.slides[this.currentIndex].querySelector('img');
+      if (img.complete) {
+        this.container.style.height = img.offsetHeight + 'px';
+      } else {
+        img.onload = () => {
+          this.container.style.height = img.offsetHeight + 'px';
+        };
+      }
+    }
+
+    goToSlide(index) {
+      this.slides[this.currentIndex].classList.remove('active');
+      this.navigation.children[this.currentIndex].classList.remove('active');
+
+      this.currentIndex = index;
+
+      this.slides[this.currentIndex].classList.add('active');
+      this.navigation.children[this.currentIndex].classList.add('active');
+
+      this.updateHeight();
+    }
+
+    startAutoPlay() {
+      this.autoPlayInterval = setInterval(() => {
+        let nextIndex = (this.currentIndex + 1) % this.slides.length;
+        this.goToSlide(nextIndex);
+      }, 4000);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    new AdSlider(document.querySelector('.ad-slider-container'));
+  });
+</script>
 
 		
    <script>
